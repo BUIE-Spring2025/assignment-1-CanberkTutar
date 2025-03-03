@@ -1,0 +1,60 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: main_test.py
+      id: main_test-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 20
+        setup-command: ''
+    - name: main_test2.py
+      id: main_test2-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 20
+        setup-command: ''
+    - name: main_test3.py
+      id: main_test3-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 20
+        setup-command: ''
+    - name: main_test4.py
+      id: main_test4-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 20
+        setup-command: ''
+    - name: main_test5.py
+      id: main_test5-py
+      uses: classroom-resources/autograding-python-grader@v1
+      with:
+        timeout: 10
+        max-score: 20
+        setup-command: ''
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        MAIN_TEST-PY_RESULTS: "${{steps.main_test-py.outputs.result}}"
+        MAIN_TEST2-PY_RESULTS: "${{steps.main_test2-py.outputs.result}}"
+        MAIN_TEST3-PY_RESULTS: "${{steps.main_test3-py.outputs.result}}"
+        MAIN_TEST4-PY_RESULTS: "${{steps.main_test4-py.outputs.result}}"
+        MAIN_TEST5-PY_RESULTS: "${{steps.main_test5-py.outputs.result}}"
+      with:
+        runners: main_test-py,main_test2-py,main_test3-py,main_test4-py,main_test5-py
