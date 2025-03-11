@@ -69,4 +69,4 @@ def int_to_roman(num):
         if num < pow(10,which_decimal-2):
             zero_detected = True
     roman_string = "".join(final_roman_list)
-    print(roman_string)
+    return roman_string
